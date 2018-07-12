@@ -1,80 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- AngularJS Material CSS now available via Google CDN; version 1.1.9 used here -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
-    <link href="node_modules/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
-    <link href="css/style.css" rel="stylesheet">
-    <title>ngClassifieds</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- AngularJS Material CSS now available via Google CDN; version 1.1.9 used here -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
+  <link href="node_modules/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
+  <link href="css/style.css" rel="stylesheet">
+  <title>ngClassifieds</title>
 </head>
 <body ng-app="ngClassifieds" ng-controller="classifiedsCtrl">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <p><strong>ngClassifieds</strong></p>
+      <md-button>
+        <md-icon class="mdi mdi-plus-circle"></md-icon>
+        New Classified
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" 
+    md-component-id="left"
+    md-is-locked-open="true">
     <md-toolbar>
-        <div class="md-toolbar-tools">
-            <p><strong>ngClassifieds</strong></p>
-            <md-button>
-                <md-icon class="mdi mdi-plus-circle"></md-icon>
-                New Classified
-            </md-button>
-        </div>
+      <h1 class="md-toolbar-tools">Add a Classified</h1>
     </md-toolbar>
 
-    <button ng-click="showName = true">Show Name</button>
-    <button ng-click="showName = false">Hide Name</button>    
-    <p ng-show="showName">Ryan Chenkie</p>
-
-    <md-content class="md-padding" layout="row" layout-wrap>
-        <md-card flex="33" ng-repeat="content in classified">
-            <img ng-src="{{content.image}}">
-            <md-card-content>
-                <div class="classified-info" ng-show="!showContact">
-                    <h2 class="md-title">{{content.title}}</h2>
-                    <h2>{{content.posted | date:'longDate'}}</h2>
-                    <h3>{{content.price | currency}}</h3>
-                    <p>{{content.description}}</p>
-                </div>
-
-                <div class="classified-contact" ng-show="showContact">
-                    <p><md-icon class="mdi mdi-account"></md-icon>{{content.contact.name}}</p>
-                    <p><md-icon class="mdi mdi-phone"></md-icon>{{content.contact.phone}}</p>
-                    <p><md-icon class="mdi mdi-email"></md-icon>{{content.contact.email}}</p>
-                </div>
-
-                <div layout="row">
-                    <md-button 
-                        ng-click="showContact = true" 
-                        ng-show="!showContact">
-                        Contact
-                    </md-button>
-                    <md-button 
-                        ng-click="showContact = false"
-                        ng-show="showContact">
-                        Details
-                    </md-button>
-                    <md-button 
-                        ng-click="showAdmin = true"
-                        ng-show="!showAdmin">
-                        Admin
-                    </md-button>
-                    <md-button 
-                        ng-click="showAdmin = false"
-                        ng-show="showAdmin">
-                        Close
-                    </md-button>
-                </div>
-
-                <div class="classified-admin" ng-if="showAdmin">
-                    <h3>Admin</h3>
-                    <div layout="row">
-                        <md-button class="md-primay">Edit</md-button>
-                        <md-button class="md-warn">Delete</md-button>
-                    </div>
-                </div>
-            </md-card-content>
-        </md-card>
+    <md-content layout-padding>
+      <form>
+        <md-input-container>
+          <label for="title">Title</label>
+          <input type="text" id="title"
+                md-autofocus>
+        </md-input-container>
+        <md-input-container>
+          <label for="Price">Price</label>
+          <input type="text" id="price">
+        </md-input-container> 
+      </form>
     </md-content>
+  </md-sidenav>
+
+  <button ng-click="showName = true">Show Name</button>
+  <button ng-click="showName = false">Hide Name</button>    
+  <p ng-show="showName">Ryan Chenkie</p>
+
+  <md-content class="md-padding" layout="row" layout-wrap>
+    <md-card flex="33" ng-repeat="content in classifieds">
+      <img ng-src="{{content.image}}">
+      <md-card-content>
+        <div class="classified-info" ng-show="!showContact">
+          <h2 class="md-title">{{content.title}}</h2>
+          <h2>{{content.posted | date:'longDate'}}</h2>
+          <h3>{{content.price | currency}}</h3>
+          <p>{{content.description}}</p>
+        </div>
+
+        <div class="classified-contact" ng-show="showContact">
+          <p><md-icon class="mdi mdi-account"></md-icon>{{content.contact.name}}</p>
+          <p><md-icon class="mdi mdi-phone"></md-icon>{{content.contact.phone}}</p>
+          <p><md-icon class="mdi mdi-email"></md-icon>{{content.contact.email}}</p>
+        </div>
+
+        <div layout="row">
+          <md-button 
+            ng-click="showContact = true" 
+            ng-show="!showContact">
+            Contact
+          </md-button>
+          <md-button 
+            ng-click="showContact = false"
+            ng-show="showContact">
+            Details
+          </md-button>
+          <md-button 
+            ng-click="showAdmin = true"
+            ng-show="!showAdmin">
+            Admin
+          </md-button>
+          <md-button 
+            ng-click="showAdmin = false"
+            ng-show="showAdmin">
+            Close
+          </md-button>
+        </div>
+
+        <div class="classified-admin" ng-if="showAdmin">
+          <h3>Admin</h3>
+          <div layout="row">
+            <md-button class="md-primay">Edit</md-button>
+            <md-button class="md-warn">Delete</md-button>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </md-content>
 
   <!-- AngularJS Material Dependencies -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
@@ -88,5 +110,6 @@
   <!--APP-->
   <script src="scripts/app.js"></script>
   <script src="components/classifieds.ctr.js"></script>
+  <script src="components/classifieds.fac.js"></script>
 </body>
 </html>
