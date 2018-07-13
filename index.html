@@ -14,7 +14,7 @@
   <md-toolbar>
     <div class="md-toolbar-tools">
       <p><strong>ngClassifieds</strong></p>
-      <md-button>
+      <md-button ng-click="openSidebar()">
         <md-icon class="mdi mdi-plus-circle"></md-icon>
         New Classified
       </md-button>
@@ -22,8 +22,7 @@
   </md-toolbar>
 
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" 
-    md-component-id="left"
-    md-is-locked-open="true">
+    md-component-id="left">
     <md-toolbar>
       <h1 class="md-toolbar-tools">Add a Classified</h1>
     </md-toolbar>
@@ -39,13 +38,27 @@
           <label for="Price">Price</label>
           <input type="text" id="price">
         </md-input-container> 
+        <md-input-container>
+          <label for="description">Description</label>
+          <textarea type="text" id="description">
+          </textarea>
+        </md-input-container>
+        <md-input-container>
+            <label for="image">Image Link</label>
+            <input type="text" id="image">
+        </md-input-container>
+        <md-button class="md-primary">
+          Save
+        </md-button>
+        <md-button class="md-primary">
+          Save Edit
+        </md-button>
+        <md-button class="md-warn" ng-click="closeSidebar()">
+          Cancel
+        </md-button>
       </form>
     </md-content>
   </md-sidenav>
-
-  <button ng-click="showName = true">Show Name</button>
-  <button ng-click="showName = false">Hide Name</button>    
-  <p ng-show="showName">Ryan Chenkie</p>
 
   <md-content class="md-padding" layout="row" layout-wrap>
     <md-card flex="33" ng-repeat="content in classifieds">
