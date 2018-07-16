@@ -1,3 +1,9 @@
 button .material-icons {
-   margin-bottom: 14px;
+  margin-bottom: 14px;
 }
+
+#big-background{
+  background: url('http://www.mouv.fr/sites/default/files/IMGP0556.JPG');
+}
+
+

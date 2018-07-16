@@ -8,19 +8,32 @@
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
   <link href="node_modules/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
   <link href="css/style.css" rel="stylesheet">
-  <title>ngClassifieds</title>
+  <title>Chaussures</title>
 </head>
 <body ng-app="ngClassifieds" ng-controller="classifiedsCtrl">
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <p><strong>ngClassifieds</strong></p>
-      <md-button ng-click="openSidebar()">
-        <md-icon class="mdi mdi-plus-circle"></md-icon>
-        New Classified
+      <p><strong>Shoes.org</strong></p>
+      <md-button ng-click="newClassified()">
+        <md-icon class="mdi mdi-plus-circle" ></md-icon>
+        New Article
       </md-button>
+
+      <md-button ng-click="showFilters = true">
+        <md-icon class="mdi mdi-magnify" ></md-icon>
+        Filters
+      </md-button>
+
     </div>
   </md-toolbar>
-
+ 
+  <div class="filters" layout="row" layout-align="center center" ng-show="showFilters">
+    <md-input-container >
+      <label>Enter Search Article</label>
+      <input type="text" ng-model="classifiedsFilter">
+    </md-input-container>
+  </div>
+  
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" 
     md-component-id="left">
     <md-toolbar>
@@ -32,49 +45,55 @@
         <md-input-container>
           <label for="title">Title</label>
           <input type="text" id="title"
-                md-autofocus>
+            ng-model="classified.title"      
+            md-autofocus>
         </md-input-container>
         <md-input-container>
           <label for="Price">Price</label>
-          <input type="text" id="price">
+          <input type="text" id="price" 
+          ng-model="classified.price">
         </md-input-container> 
         <md-input-container>
           <label for="description">Description</label>
-          <textarea type="text" id="description">
+          <textarea type="text" id="description" 
+            ng-model="classified.description">
           </textarea>
         </md-input-container>
         <md-input-container>
             <label for="image">Image Link</label>
-            <input type="text" id="image">
+            <input type="text" id="image" 
+              ng-model="classified.image">
         </md-input-container>
-        <md-button class="md-primary">
+        <md-button  class="md-primary" ng-if="!editing" ng-click="saveClassified(classified) ">
           Save
         </md-button>
-        <md-button class="md-primary">
+        <md-button ng-if="editing" ng-click="saveClassified(classified)" class="md-primary">
           Save Edit
         </md-button>
         <md-button class="md-warn" ng-click="closeSidebar()">
           Cancel
         </md-button>
+
+        <pre>{{ classified | json }}</pre>
       </form>
     </md-content>
   </md-sidenav>
 
-  <md-content class="md-padding" layout="row" layout-wrap>
-    <md-card flex="33" ng-repeat="content in classifieds">
-      <img ng-src="{{content.image}}">
+  <md-content class="md-padding" id="big-background" layout="row" layout-wrap>
+    <md-card flex-gt-sm="25" flex-offset="5" ng-repeat="classified in classifieds | filter: classifiedsFilter">
+      <img ng-src="{{classified.image}}">
       <md-card-content>
         <div class="classified-info" ng-show="!showContact">
-          <h2 class="md-title">{{content.title}}</h2>
-          <h2>{{content.posted | date:'longDate'}}</h2>
-          <h3>{{content.price | currency}}</h3>
-          <p>{{content.description}}</p>
+          <h2 class="md-title">{{classified.title}}</h2>
+          <h2>{{classified.posted | date:'longDate'}}</h2>
+          <h3>{{classified.price | currency}}</h3>
+          <p>{{classified.description}}</p>
         </div>
 
         <div class="classified-contact" ng-show="showContact">
-          <p><md-icon class="mdi mdi-account"></md-icon>{{content.contact.name}}</p>
-          <p><md-icon class="mdi mdi-phone"></md-icon>{{content.contact.phone}}</p>
-          <p><md-icon class="mdi mdi-email"></md-icon>{{content.contact.email}}</p>
+          <p><md-icon class="mdi mdi-account"></md-icon>{{classified.contact.name}}</p>
+          <p><md-icon class="mdi mdi-phone"></md-icon>{{classified.contact.phone}}</p>
+          <p><md-icon class="mdi mdi-email"></md-icon>{{classified.contact.email}}</p>
         </div>
 
         <div layout="row">
@@ -103,8 +122,8 @@
         <div class="classified-admin" ng-if="showAdmin">
           <h3>Admin</h3>
           <div layout="row">
-            <md-button class="md-primay">Edit</md-button>
-            <md-button class="md-warn">Delete</md-button>
+            <md-button class="md-primay" ng-click="editClassified(classified)">Edit</md-button>
+            <md-button class="md-warn" ng-click="deleteClassified($event, classified)">Delete</md-button>
           </div>
         </div>
       </md-card-content>
