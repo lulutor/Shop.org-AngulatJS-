@@ -6,4 +6,8 @@ button .material-icons {
   background: url('http://www.mouv.fr/sites/default/files/IMGP0556.JPG');
 }
 
+md-button {
+  border: solid 1px black;
+}
+
 

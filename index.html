@@ -13,15 +13,15 @@
 <body ng-app="ngClassifieds" ng-controller="classifiedsCtrl">
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <p><strong>Shoes.org</strong></p>
+      <p><strong>MY WATCH</strong></p>
       <md-button ng-click="newClassified()">
         <md-icon class="mdi mdi-plus-circle" ></md-icon>
-        New Article
+        Add
       </md-button>
 
       <md-button ng-click="showFilters = true">
         <md-icon class="mdi mdi-magnify" ></md-icon>
-        Filters
+        Filter
       </md-button>
 
     </div>
@@ -97,7 +97,7 @@
         </div>
 
         <div layout="row">
-          <md-button 
+          <md-button class="bg-1"
             ng-click="showContact = true" 
             ng-show="!showContact">
             Contact
